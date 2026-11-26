@@ -1549,15 +1549,17 @@ export default function App() {
               <div className="relative group">
                 <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-emerald-500/20 via-cyan-500/15 to-transparent blur-xl pointer-events-none" />
                 <div
-                  className={`relative p-[3px] rounded-full bg-gradient-to-tr from-emerald-500/80 via-cyan-400/70 to-teal-500/80 shadow-lg ${
+                  className={`relative p-[3px] rounded-full bg-gradient-to-tr from-emerald-500/85 via-cyan-400/75 to-teal-500/85 shadow-lg ${
                     isDark ? 'shadow-black/50' : 'shadow-zinc-300/60'
                   }`}
                 >
-                  <img
-                    src={AVATAR_FILE_PATH}
-                    alt={t.hero.name}
-                    className="w-full h-full object-cover object-[58%_25%] scale-125 origin-center"
-                  />
+                  <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden">
+                    <img
+                      src={AVATAR_FILE_PATH}
+                      alt={t.hero.name}
+                      className="w-full h-full object-cover object-[58%_25%] scale-125 origin-center"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
