@@ -1546,16 +1546,17 @@ export default function App() {
             </div>
 
             <div className="lg:col-span-4 flex justify-center">
-              <div className="relative p-1 rounded-full bg-gradient-to-tr from-emerald-500 via-cyan-400 to-teal-500 shadow-xl shadow-emerald-500/15">
+              <div className="relative group">
+                <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-emerald-500/20 via-cyan-500/15 to-transparent blur-xl pointer-events-none" />
                 <div
-                  className={`p-1 rounded-full ${
-                    isDark ? 'bg-zinc-950' : 'bg-slate-50'
+                  className={`relative p-[3px] rounded-full bg-gradient-to-tr from-emerald-500/80 via-cyan-400/70 to-teal-500/80 shadow-lg ${
+                    isDark ? 'shadow-black/50' : 'shadow-zinc-300/60'
                   }`}
                 >
                   <img
                     src={AVATAR_FILE_PATH}
                     alt={t.hero.name}
-                    className="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover object-top"
+                    className="w-44 h-44 sm:w-48 sm:h-48 rounded-full object-cover object-[50%_20%]"
                   />
                 </div>
               </div>
