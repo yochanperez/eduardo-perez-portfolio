@@ -1556,7 +1556,7 @@ export default function App() {
                   <img
                     src={AVATAR_FILE_PATH}
                     alt={t.hero.name}
-                    className="w-52 h-52 sm:w-64 sm:h-64 rounded-full object-cover object-[50%_20%]"
+                    className="w-full h-full object-cover object-[58%_25%] scale-125 origin-center"
                   />
                 </div>
               </div>
