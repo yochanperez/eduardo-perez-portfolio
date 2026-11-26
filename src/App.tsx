@@ -33,7 +33,8 @@ import {
   CheckCircle2,
   ArrowRight,
   Activity,
-  Lock
+  Lock,
+  FileDown
 } from 'lucide-react';
 
 type IconProps = SVGProps<SVGSVGElement>;
@@ -49,6 +50,8 @@ const Linkedin = (props: IconProps) => (
     <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
   </svg>
 );
+
+const CV_FILE_PATH = '/CV_Eduardo_Perez_2026.pdf';
 
 interface ArchitectureNode {
   id: string;
@@ -137,6 +140,7 @@ interface PortfolioLocale {
     location: string;
     summary: string;
     ctaProjects: string;
+    ctaCv: string;
     ctaTerminal: string;
     ctaCopy: string;
     ctaCopied: string;
@@ -224,6 +228,7 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
       summary:
         'Estudiante de Desarrollo de Software en la Universidad UTE, enfocado en el desarrollo Full-Stack y el Aseguramiento de Calidad (QA). Especializado en la construcción de arquitecturas backend escalables con NestJS y Python (FastAPI/Django), desarrollo frontend moderno con React y TypeScript, gestión de bases de datos relacionales y documentales (PostgreSQL y MongoDB), automatización de pruebas y despliegue continuo en servidores Linux.',
       ctaProjects: 'Explorar Arquitectura',
+      ctaCv: 'Descargar CV (PDF)',
       ctaTerminal: 'Abrir Terminal (Ctrl+K)',
       ctaCopy: 'Copiar Correo',
       ctaCopied: 'Correo Copiado'
@@ -552,8 +557,8 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
     },
     terminal: {
       title: 'eduardo@quito-vps:~ — Terminal Interactiva',
-      placeholder: 'Escribe un comando (ej. help, projects, qa, stack, lang en, theme)...',
-      hint: 'Comandos disponibles: help, about, projects, qa, stack, credentials, contact, lang es, lang en, theme, clear',
+      placeholder: 'Escribe un comando (ej. help, cv, pixelstore, yozenspa, github, linkedin)...',
+      hint: 'Comandos: help, about, projects, qa, stack, credentials, contact, cv, pixelstore, yozenspa, github, linkedin, lang es, lang en, theme, clear',
       welcome:
         'Bienvenido a la consola interactiva de Eduardo Pérez Iwanaga. Escribe "help" para ver los comandos disponibles o haz clic en un atajo abajo.'
     }
@@ -576,6 +581,7 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
       summary:
         'Software Development student at Universidad UTE focused on Full-Stack development and Quality Assurance (QA). Specialized in building scalable backend architectures with NestJS and Python (FastAPI/Django), modern frontend development with React and TypeScript, relational and document database management (PostgreSQL and MongoDB), test automation, and continuous deployment on Linux servers.',
       ctaProjects: 'Explore Architecture',
+      ctaCv: 'Download CV (PDF)',
       ctaTerminal: 'Open Terminal (Ctrl+K)',
       ctaCopy: 'Copy Email',
       ctaCopied: 'Email Copied'
@@ -904,8 +910,8 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
     },
     terminal: {
       title: 'eduardo@quito-vps:~ — Interactive Terminal',
-      placeholder: 'Type a command (e.g., help, projects, qa, stack, lang es, theme)...',
-      hint: 'Available commands: help, about, projects, qa, stack, credentials, contact, lang es, lang en, theme, clear',
+      placeholder: 'Type a command (e.g., help, cv, pixelstore, yozenspa, github, linkedin)...',
+      hint: 'Commands: help, about, projects, qa, stack, credentials, contact, cv, pixelstore, yozenspa, github, linkedin, lang es, lang en, theme, clear',
       welcome:
         'Welcome to Eduardo Pérez Iwanaga’s interactive console. Type "help" to list commands or click a quick shortcut below.'
     }
@@ -1038,6 +1044,19 @@ export default function App() {
     }
   };
 
+  const openExternalUrl = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const triggerCvDownload = () => {
+    const link = document.createElement('a');
+    link.href = CV_FILE_PATH;
+    link.download = 'CV_Eduardo_Perez_2026.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const executeTerminalCommand = (rawCmd: string) => {
     const cmd = rawCmd.trim();
     if (!cmd) return;
@@ -1060,6 +1079,11 @@ export default function App() {
         '  stack        → ' + (lang === 'es' ? 'Ir a matriz de habilidades técnicas' : 'Jump to technical stack matrix'),
         '  credentials  → ' + (lang === 'es' ? 'Ver ponencia 2026 y certificación Cisco' : 'View 2026 talk & Cisco certification'),
         '  contact      → ' + (lang === 'es' ? 'Mostrar correo, teléfono, GitHub, LinkedIn y ORCID' : 'Show email, phone, GitHub, LinkedIn & ORCID'),
+        '  cv           → ' + (lang === 'es' ? 'Descargar CV en PDF' : 'Download CV PDF'),
+        '  pixelstore   → ' + (lang === 'es' ? 'Abrir PixelStore en nueva pestaña' : 'Open PixelStore in a new tab'),
+        '  yozenspa     → ' + (lang === 'es' ? 'Abrir Yözen Spa en nueva pestaña' : 'Open Yözen Spa in a new tab'),
+        '  github       → ' + (lang === 'es' ? 'Abrir GitHub en nueva pestaña' : 'Open GitHub in a new tab'),
+        '  linkedin     → ' + (lang === 'es' ? 'Abrir LinkedIn en nueva pestaña' : 'Open LinkedIn in a new tab'),
         '  lang es | en → ' + (lang === 'es' ? 'Cambiar idioma de la interfaz' : 'Switch interface language'),
         '  theme        → ' + (lang === 'es' ? 'Alternar modo oscuro / claro' : 'Toggle dark / light theme'),
         '  clear        → ' + (lang === 'es' ? 'Limpiar consola' : 'Clear console')
@@ -1107,6 +1131,45 @@ export default function App() {
         'ORCID:    0009-0004-3658-2724'
       ];
       scrollToSection('contact');
+    } else if (lower === 'cv') {
+      triggerCvDownload();
+      outputLines = [
+        lang === 'es'
+          ? `Descargando ${CV_FILE_PATH}...`
+          : `Downloading ${CV_FILE_PATH}...`
+      ];
+    } else if (lower === 'pixelstore') {
+      const url = 'https://pixeltech.uaeftt-ute.site';
+      openExternalUrl(url);
+      outputLines = [
+        lang === 'es'
+          ? `Abriendo PixelStore (${url}) en una nueva pestaña...`
+          : `Opening PixelStore (${url}) in a new tab...`
+      ];
+    } else if (lower === 'yozenspa') {
+      const url = 'https://yozens.shop';
+      openExternalUrl(url);
+      outputLines = [
+        lang === 'es'
+          ? `Abriendo Yözen Spa (${url}) en una nueva pestaña...`
+          : `Opening Yözen Spa (${url}) in a new tab...`
+      ];
+    } else if (lower === 'github') {
+      const url = 'https://github.com/yochanperez';
+      openExternalUrl(url);
+      outputLines = [
+        lang === 'es'
+          ? `Abriendo GitHub (${url}) en una nueva pestaña...`
+          : `Opening GitHub (${url}) in a new tab...`
+      ];
+    } else if (lower === 'linkedin') {
+      const url = 'https://linkedin.com/in/eduardo-iwanaga';
+      openExternalUrl(url);
+      outputLines = [
+        lang === 'es'
+          ? `Abriendo LinkedIn (${url}) en una nueva pestaña...`
+          : `Opening LinkedIn (${url}) in a new tab...`
+      ];
     } else if (lower === 'lang es') {
       setLang('es');
       outputLines = ['Idioma actualizado a Español (ES).'];
@@ -1385,6 +1448,19 @@ export default function App() {
               >
                 <Layers className="w-4 h-4" />
                 {t.hero.ctaProjects}
+              </a>
+
+              <a
+                href={CV_FILE_PATH}
+                download="CV_Eduardo_Perez_2026.pdf"
+                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-semibold text-sm transition-all ${
+                  isDark
+                    ? 'border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300'
+                    : 'border-cyan-600/40 bg-cyan-50 hover:bg-cyan-100 text-cyan-800 shadow-sm'
+                }`}
+              >
+                <FileDown className="w-4 h-4" />
+                <span>{t.hero.ctaCv}</span>
               </a>
 
               <button
@@ -2249,7 +2325,18 @@ export default function App() {
             </div>
 
             <div className="px-4 py-2 border-t border-zinc-800/80 bg-zinc-900/60 flex flex-wrap gap-1.5">
-              {['help', 'projects', 'qa', 'stack', 'credentials', 'contact', 'theme'].map((quick) => (
+              {[
+                'help',
+                'projects',
+                'qa',
+                'stack',
+                'cv',
+                'pixelstore',
+                'yozenspa',
+                'github',
+                'linkedin',
+                'theme'
+              ].map((quick) => (
                 <button
                   key={quick}
                   type="button"
