@@ -24,7 +24,6 @@ import {
   Menu,
   BookOpen,
   Sparkles,
-  Image as ImageIcon,
   Play,
   RotateCcw,
   Sun,
@@ -52,6 +51,7 @@ const Linkedin = (props: IconProps) => (
 );
 
 const CV_FILE_PATH = '/CV_Eduardo_Perez_2026.pdf';
+const AVATAR_FILE_PATH = '/avatar.jpg';
 
 interface ArchitectureNode {
   id: string;
@@ -67,6 +67,7 @@ interface ProjectItem {
   name: string;
   url: string;
   domain: string;
+  screenshot: string;
   category: string;
   shortDesc: string;
   highlights: string[];
@@ -150,8 +151,6 @@ interface PortfolioLocale {
     subtitle: string;
     viewLive: string;
     clickNodeHint: string;
-    screenshotTitle: string;
-    screenshotNote: string;
     items: ProjectItem[];
   };
   experience: {
@@ -239,14 +238,13 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
         'Haz clic en cada nodo de la arquitectura para inspeccionar el flujo de datos, decisiones técnicas y despliegue en servidores Linux.',
       viewLive: 'Visitar Sitio en Vivo',
       clickNodeHint: 'Selecciona un nodo del diagrama para ver los detalles técnicos de esa capa:',
-      screenshotTitle: 'Vista Previa / Captura Real del Proyecto',
-      screenshotNote: 'Contenedor preparado para insertar captura de pantalla real (.webp / .png)',
       items: [
         {
           id: 'pixelstore',
           name: 'PixelStore — Plataforma E-Commerce Full-Stack',
           url: 'https://pixeltech.uaeftt-ute.site',
           domain: 'pixeltech.uaeftt-ute.site',
+          screenshot: '/pixelstore.jpg',
           category: 'Full-Stack · Persistencia Políglota · IA',
           shortDesc:
             'Arquitectura modular de comercio electrónico con persistencia políglota (PostgreSQL + MongoDB), autenticación OAuth 2.0, pagos con PayPal y comparador inteligente impulsado por Google Gemini.',
@@ -322,6 +320,7 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
           name: 'Yözen Spa — Plataforma Web Comercial y Gestión Operativa',
           url: 'https://yozens.shop',
           domain: 'yozens.shop',
+          screenshot: '/yozenspa.jpg',
           category: 'Web Corporativa · Cloud & Automatización',
           shortDesc:
             'Plataforma web corporativa en producción sobre Ubuntu VPS con Nginx, SSL y Cloudflare, optimizada con SEO local y atención automatizada mediante asistente virtual.',
@@ -592,14 +591,13 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
         'Click any architecture node to inspect data flow, engineering decisions, and Linux server deployment.',
       viewLive: 'Visit Live Site',
       clickNodeHint: 'Select a diagram node to inspect that architectural layer:',
-      screenshotTitle: 'Project Visual Preview / Live Screenshot Slot',
-      screenshotNote: 'Container ready to embed real application screenshot (.webp / .png)',
       items: [
         {
           id: 'pixelstore',
           name: 'PixelStore — Full-Stack E-Commerce Platform',
           url: 'https://pixeltech.uaeftt-ute.site',
           domain: 'pixeltech.uaeftt-ute.site',
+          screenshot: '/pixelstore.jpg',
           category: 'Full-Stack · Polyglot Persistence · AI',
           shortDesc:
             'Modular e-commerce architecture with polyglot persistence (PostgreSQL + MongoDB), OAuth 2.0 authentication, PayPal checkout, and an intelligent comparator powered by Google Gemini.',
@@ -675,6 +673,7 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
           name: 'Yözen Spa — Commercial Web Platform & Operations',
           url: 'https://yozens.shop',
           domain: 'yozens.shop',
+          screenshot: '/yozenspa.jpg',
           category: 'Corporate Web · Cloud & Automation',
           shortDesc:
             'Production corporate web platform hosted on Ubuntu VPS with Nginx, SSL, and Cloudflare, enhanced with local SEO strategy and virtual assistant customer support automation.',
@@ -1256,9 +1255,11 @@ export default function App() {
             href="#about"
             className="flex items-center gap-2.5 font-semibold tracking-tight group shrink-0"
           >
-            <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/40 flex items-center justify-center font-mono text-xs text-emerald-500 group-hover:border-emerald-400 transition-colors">
-              EP
-            </span>
+            <img
+              src="/logo-eyp.png"
+              alt="Logo EYPI"
+              className="w-8 h-8 rounded-lg object-contain border border-emerald-500/40 bg-zinc-950/60 p-0.5"
+            />
             <span className="font-mono text-sm hidden sm:inline">
               eduardo.perez<span className="text-emerald-500">()</span>
             </span>
@@ -1406,140 +1407,158 @@ export default function App() {
             isDark ? 'border-zinc-800/70' : 'border-zinc-200'
           }`}
         >
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 text-xs font-mono mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              {t.hero.badge}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 text-xs font-mono mb-6">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                {t.hero.badge}
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12]">
+                {t.hero.name}
+              </h1>
+
+              <p className="mt-4 text-lg sm:text-2xl font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
+                {t.hero.role}
+              </p>
+
+              <div className={`mt-4 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm font-mono ${mutedText}`}>
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-emerald-500" />
+                  {t.hero.location}
+                </span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Phone className="w-4 h-4 text-cyan-500" />
+                  +593 98 780 5762
+                </span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Mail className="w-4 h-4 text-emerald-500" />
+                  yochanperez@gmail.com
+                </span>
+              </div>
+
+              <p className={`mt-6 text-base sm:text-lg leading-relaxed max-w-3xl ${bodyText}`}>
+                {t.hero.summary}
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-sm transition-all shadow-lg shadow-emerald-500/15"
+                >
+                  <Layers className="w-4 h-4" />
+                  {t.hero.ctaProjects}
+                </a>
+
+                <a
+                  href={CV_FILE_PATH}
+                  download="CV_Eduardo_Perez_2026.pdf"
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-semibold text-sm transition-all ${
+                    isDark
+                      ? 'border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300'
+                      : 'border-cyan-600/40 bg-cyan-50 hover:bg-cyan-100 text-cyan-800 shadow-sm'
+                  }`}
+                >
+                  <FileDown className="w-4 h-4" />
+                  <span>{t.hero.ctaCv}</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setTerminalOpen(true)}
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-mono text-sm transition-all cursor-pointer ${
+                    isDark
+                      ? 'border-zinc-700 bg-zinc-900 hover:border-emerald-500/50 text-emerald-300'
+                      : 'border-zinc-300 bg-white hover:border-emerald-500 text-emerald-700 shadow-sm'
+                  }`}
+                >
+                  <Terminal className="w-4 h-4" />
+                  <span>{t.hero.ctaTerminal}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard('hero-email', 'yochanperez@gmail.com')}
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-medium text-sm transition-all cursor-pointer ${
+                    isDark
+                      ? 'border-zinc-800 bg-zinc-900/80 hover:border-zinc-600 text-zinc-200'
+                      : 'border-zinc-200 bg-white hover:border-zinc-400 text-zinc-800 shadow-sm'
+                  }`}
+                >
+                  {copiedKey === 'hero-email' ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-500" />
+                      <span className="text-emerald-500">{t.hero.ctaCopied}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-zinc-400" />
+                      <span>{t.hero.ctaCopy}</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href="https://github.com/yochanperez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all ${
+                    isDark
+                      ? 'border-zinc-800 bg-zinc-900/60 hover:border-emerald-500/40 text-zinc-300 hover:text-white'
+                      : 'border-zinc-200 bg-white hover:border-emerald-500 text-zinc-700 hover:text-zinc-950'
+                  }`}
+                >
+                  <Github className="w-4 h-4 text-emerald-500" />
+                  <span>GitHub</span>
+                </a>
+
+                <a
+                  href="https://linkedin.com/in/eduardo-iwanaga"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all ${
+                    isDark
+                      ? 'border-zinc-800 bg-zinc-900/60 hover:border-cyan-500/40 text-zinc-300 hover:text-white'
+                      : 'border-zinc-200 bg-white hover:border-cyan-500 text-zinc-700 hover:text-zinc-950'
+                  }`}
+                >
+                  <Linkedin className="w-4 h-4 text-cyan-500" />
+                  <span>LinkedIn</span>
+                </a>
+
+                <a
+                  href="https://orcid.org/0009-0004-3658-2724"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-mono transition-all ${
+                    isDark
+                      ? 'border-zinc-800 bg-zinc-900/60 hover:border-emerald-500/40 text-zinc-300 hover:text-white'
+                      : 'border-zinc-200 bg-white hover:border-emerald-500 text-zinc-700 hover:text-zinc-950'
+                  }`}
+                  title="ORCID: 0009-0004-3658-2724"
+                >
+                  <BookOpen className="w-4 h-4 text-emerald-500" />
+                  <span>ORCID</span>
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12]">
-              {t.hero.name}
-            </h1>
-
-            <p className="mt-4 text-lg sm:text-2xl font-semibold bg-gradient-to-r from-emerald-500 via-cyan-500 to-teal-500 bg-clip-text text-transparent">
-              {t.hero.role}
-            </p>
-
-            <div className={`mt-4 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm font-mono ${mutedText}`}>
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-emerald-500" />
-                {t.hero.location}
-              </span>
-              <span>•</span>
-              <span className="inline-flex items-center gap-1.5">
-                <Phone className="w-4 h-4 text-cyan-500" />
-                +593 98 780 5762
-              </span>
-              <span>•</span>
-              <span className="inline-flex items-center gap-1.5">
-                <Mail className="w-4 h-4 text-emerald-500" />
-                yochanperez@gmail.com
-              </span>
-            </div>
-
-            <p className={`mt-6 text-base sm:text-lg leading-relaxed max-w-3xl ${bodyText}`}>
-              {t.hero.summary}
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold text-sm transition-all shadow-lg shadow-emerald-500/15"
-              >
-                <Layers className="w-4 h-4" />
-                {t.hero.ctaProjects}
-              </a>
-
-              <a
-                href={CV_FILE_PATH}
-                download="CV_Eduardo_Perez_2026.pdf"
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-semibold text-sm transition-all ${
-                  isDark
-                    ? 'border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300'
-                    : 'border-cyan-600/40 bg-cyan-50 hover:bg-cyan-100 text-cyan-800 shadow-sm'
-                }`}
-              >
-                <FileDown className="w-4 h-4" />
-                <span>{t.hero.ctaCv}</span>
-              </a>
-
-              <button
-                type="button"
-                onClick={() => setTerminalOpen(true)}
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-mono text-sm transition-all cursor-pointer ${
-                  isDark
-                    ? 'border-zinc-700 bg-zinc-900 hover:border-emerald-500/50 text-emerald-300'
-                    : 'border-zinc-300 bg-white hover:border-emerald-500 text-emerald-700 shadow-sm'
-                }`}
-              >
-                <Terminal className="w-4 h-4" />
-                <span>{t.hero.ctaTerminal}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => copyToClipboard('hero-email', 'yochanperez@gmail.com')}
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border font-medium text-sm transition-all cursor-pointer ${
-                  isDark
-                    ? 'border-zinc-800 bg-zinc-900/80 hover:border-zinc-600 text-zinc-200'
-                    : 'border-zinc-200 bg-white hover:border-zinc-400 text-zinc-800 shadow-sm'
-                }`}
-              >
-                {copiedKey === 'hero-email' ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-500" />
-                    <span className="text-emerald-500">{t.hero.ctaCopied}</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-zinc-400" />
-                    <span>{t.hero.ctaCopy}</span>
-                  </>
-                )}
-              </button>
-
-              <a
-                href="https://github.com/yochanperez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all ${
-                  isDark
-                    ? 'border-zinc-800 bg-zinc-900/60 hover:border-emerald-500/40 text-zinc-300 hover:text-white'
-                    : 'border-zinc-200 bg-white hover:border-emerald-500 text-zinc-700 hover:text-zinc-950'
-                }`}
-              >
-                <Github className="w-4 h-4 text-emerald-500" />
-                <span>GitHub</span>
-              </a>
-
-              <a
-                href="https://linkedin.com/in/eduardo-iwanaga"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm transition-all ${
-                  isDark
-                    ? 'border-zinc-800 bg-zinc-900/60 hover:border-cyan-500/40 text-zinc-300 hover:text-white'
-                    : 'border-zinc-200 bg-white hover:border-cyan-500 text-zinc-700 hover:text-zinc-950'
-                }`}
-              >
-                <Linkedin className="w-4 h-4 text-cyan-500" />
-                <span>LinkedIn</span>
-              </a>
-
-              <a
-                href="https://orcid.org/0009-0004-3658-2724"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl border text-sm font-mono transition-all ${
-                  isDark
-                    ? 'border-zinc-800 bg-zinc-900/60 hover:border-emerald-500/40 text-zinc-300 hover:text-white'
-                    : 'border-zinc-200 bg-white hover:border-emerald-500 text-zinc-700 hover:text-zinc-950'
-                }`}
-                title="ORCID: 0009-0004-3658-2724"
-              >
-                <BookOpen className="w-4 h-4 text-emerald-500" />
-                <span>ORCID</span>
-              </a>
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative p-1 rounded-full bg-gradient-to-tr from-emerald-500 via-cyan-400 to-teal-500 shadow-xl shadow-emerald-500/15">
+                <div
+                  className={`p-1 rounded-full ${
+                    isDark ? 'bg-zinc-950' : 'bg-slate-50'
+                  }`}
+                >
+                  <img
+                    src={AVATAR_FILE_PATH}
+                    alt={t.hero.name}
+                    className="w-44 h-44 sm:w-56 sm:h-56 rounded-full object-cover object-top"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1664,28 +1683,30 @@ export default function App() {
                           </div>
                         </div>
 
-                        <div
-                          className={`mt-4 p-4 rounded-xl border border-dashed flex items-center justify-between gap-3 ${
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`mt-4 block rounded-xl border overflow-hidden group ${
                             isDark
-                              ? 'border-zinc-700/80 bg-zinc-950/50'
-                              : 'border-zinc-300 bg-zinc-50/80'
+                              ? 'border-zinc-800 bg-zinc-950'
+                              : 'border-zinc-200 bg-zinc-100'
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
-                              <ImageIcon className="w-4 h-4 text-emerald-500" />
-                            </div>
-                            <div>
-                              <div className="text-xs font-semibold">{t.projects.screenshotTitle}</div>
-                              <div className={`text-[11px] font-mono ${mutedText}`}>
-                                {t.projects.screenshotNote}
-                              </div>
-                            </div>
+                          <img
+                            src={project.screenshot}
+                            alt={`Captura de ${project.name}`}
+                            loading="lazy"
+                            className="w-full h-48 sm:h-56 object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
+                          />
+                          <div className="px-3.5 py-2 flex items-center justify-between text-[11px] font-mono border-t border-zinc-800/60 bg-zinc-950/90 text-zinc-300">
+                            <span>{project.domain}</span>
+                            <span className="inline-flex items-center gap-1 text-emerald-400">
+                              {t.projects.viewLive}
+                              <ExternalLink className="w-3 h-3" />
+                            </span>
                           </div>
-                          <span className="font-mono text-[11px] px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-500 shrink-0">
-                            {project.domain}
-                          </span>
-                        </div>
+                        </a>
                       </div>
 
                       <div
