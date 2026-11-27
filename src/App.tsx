@@ -517,10 +517,10 @@ const PORTFOLIO_DATA: { es: PortfolioLocale; en: PortfolioLocale } = {
     },
     education: {
       title: 'Educación e Idiomas',
-      subtitle: 'Formación universitaria en ingeniería de software y competencias lingüísticas.',
+      subtitle: 'Formación universitaria en Tecnología de software y competencias lingüísticas.',
       academic: [
         {
-          degree: 'Desarrollo de Software (Ingeniería en Tecnologías de la Información)',
+          degree: 'Desarrollo de Software (Tecnología Superior en Desarrollo de Software)',
           institution: 'Universidad UTE',
           location: 'Quito, Ecuador',
           period: '2024 – Presente'
